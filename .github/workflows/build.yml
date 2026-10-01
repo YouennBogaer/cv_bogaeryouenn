@@ -1,0 +1,21 @@
+name: Build CV
+on:
+  push:
+    paths: ["main.tex"]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+      - run: sudo apt-get install -y poppler-utils && pdftoppm -png -r 150 -singlefile main.pdf main
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add main.pdf main.png
+          git commit -m "Mise à jour du CV" || exit 0
+          git push
