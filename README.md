@@ -1,3 +1,3 @@
-[![CV](cv.png)](cv.pdf)
+[![CV](cv.png)](main.pdf)
 
-📄 [Télécharger le CV en PDF](cv.pdf)
+📄 [Télécharger le CV en PDF](main.pdf)
