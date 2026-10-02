@@ -1,133 +1,129 @@
-%%% DON'T EDIT %%
-
-% resume.cls
-
-% \documentstyle{resume}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% resume.cls -- Classe de CV deux colonnes
+%
+% Dérivée de la classe « resume » de Trey Hunner, adaptée (mise en page en
+% deux colonnes, environnements dédiés) pour ce CV.
+%
 % Copyright (C) 2010 by Trey Hunner
 %
 % Copying and distribution of this file, with or without modification,
 % are permitted in any medium without royalty provided the copyright
 % notice and this notice are preserved.  This file is offered as-is,
 % without any warranty.
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ProvidesClass{resume}[2010/07/10 v0.9 Resume class]
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{resume}[2026/10/02 v1.0 Classe de CV deux colonnes]
 
-\LoadClass[12pt,letterpaper]{article}
-
-\usepackage[parfill]{parskip}       % Do not indent paragraphs
-\usepackage{array}                  % required for boldface tabular columns
-\usepackage{ifthen}
-\usepackage{ulem}
-
-\nofiles                            % .aux files are not needed for resumes
-\pagestyle{empty}                   % resumes do not need page numbers
+% Les options (a4paper, ...) sont transmises à la classe article
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\LoadClass[12pt]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% HEADINGS: Commands for printing name and address
+% PACKAGES
 
-\def \name#1{\def\@name{#1}}        % \name command can be used to set name
-\def \@name {}                      % Set \@name to empty by default
+\RequirePackage[T1]{fontenc}        % Accents copiables depuis le PDF
+\RequirePackage{lmodern}            % Police vectorielle pour l'encodage T1
+\RequirePackage[french]{babel}      % Césure et typographie françaises
+\RequirePackage[parfill]{parskip}   % Pas d'indentation des paragraphes
+\RequirePackage[normalem]{ulem}     % \uline (titres de colonne gauche)
+\RequirePackage[hidelinks]{hyperref} % Liens cliquables, sans cadre coloré
+\hypersetup{pdflang=fr-FR}
+\urlstyle{same}                     % \url dans la police du texte
 
-\def \addressSep {$\diamond$}         % Set default address seperator
+\nofiles                            % Pas de fichier .aux
+\pagestyle{empty}                   % Pas de numéro de page
 
-% One or two address lines can be specified 
-\let \@addressone \relax
-\let \@addresstwo \relax
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ESPACEMENTS
 
-% \address command can be used to set first and second address (optional)
-\def \address #1{
-  \@ifundefined{@addresstwo}{
-    \def \@addresstwo {#1}
-  }{
-    \def \@addressone {#1}
-  }
-}
+\newcommand{\sectionskip}{\medskip}       % Avant chaque titre de section
+\newcommand{\sectionlineskip}{\medskip}   % Entre un titre et son filet
 
-% \printaddress is used to style an address line (given as input)
-\def \printaddress #1{
-  \begingroup
-    \def \\ {\addressSep\ }
-    \centerline{#1}
-  \endgroup
-  \par
-  \addressskip
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EN-TÊTE
 
-% \printname is used to print the name as a page header
-\def \printname {
-  \begingroup
-    \hfil{\MakeUppercase{\namesize\bf \@name}}\hfil
-    \nameskip\break
-  \endgroup
+% \rHeader{Nom}{Titre}{Sous-titre} : bloc centré en haut de page
+\newcommand{\rHeader}[3]{%
+  \begin{center}
+    {\huge\bfseries #1}\\[2mm]
+    {\large\bfseries #2}\\
+    #3
+  \end{center}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DOCUMENT: Create the head of the document
+% LISTES
 
-\let\ori@document=\document
-\renewcommand{\document}{
-  \ori@document                     % Begin document
-  \printname                        % Print the name specified with \name
-  \@ifundefined{@addressone}{}{     % Print the first address if specified
-    \printaddress{\@addressone}}
-  \@ifundefined{@addresstwo}{}{     % Print the second address if specified
-    \printaddress{\@addresstwo}}
+% Liste à puces « · » ; l'argument optionnel règle l'espace entre éléments
+\newenvironment{rBullets}[1][0.5em]{%
+  \begin{list}{$\cdot$}{%
+    \setlength{\leftmargin}{0.5em}%
+    \setlength{\itemsep}{#1}%
+  }%
+}{%
+  \end{list}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTIONS: Create section headings
+% COLONNE GAUCHE
 
-% Used to create large resume section
-\newenvironment{rSection}[1]{
+% \begin{rLeftColSection}{Titre} : section avec titre souligné
+\newenvironment{rLeftColSection}[1]{%
   \sectionskip
-  \MakeUppercase{\bf #1}
+  \setlength{\ULdepth}{3pt}%
+  \uline{\bfseries\MakeUppercase{#1}}%
+  \vspace{3pt}%
+  \begin{list}{}{\setlength{\leftmargin}{-0.5em}}%
+  \item[]%
+}{%
+  \end{list}%
+  \vspace{2mm}%
+}
+
+% \begin{rSkillGroup}{Catégorie} : groupe de compétences sans puce
+\newenvironment{rSkillGroup}[1]{%
+  \textbf{#1 :}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{0.5em}%
+    \setlength{\itemsep}{0.1em}%
+  }%
+}{%
+  \end{list}%
+  \vspace{4pt}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLONNE DROITE
+
+% \begin{rSection}{Titre} : section avec titre en capitales et filet
+\newenvironment{rSection}[1]{%
+  \sectionskip
+  \textbf{\MakeUppercase{#1}}%
   \sectionlineskip
   \hrule
-  \begin{list}{}{
-    \setlength{\leftmargin}{1.5em}
-    \setlength{\parskip}{13pt}
-  }
-  \item[]
-}{
-  \end{list}
+  \begin{list}{}{\setlength{\leftmargin}{1.5em}}%
+  \item[]%
+}{%
+  \end{list}%
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTIONS: Create section headings
-% section for left column
-% Used to create large resume section
-
-\newenvironment{rLeftColSection}[1]{
-  \sectionskip
-  \setlength{\ULdepth}{3pt}
-  \uline{\MakeUppercase{\bf #1}}
-  \begin{list}{}{
-    \setlength{\leftmargin}{-0.5em}
-  }
-  \item[]
-}{
-  \end{list}
+% \begin{rSubsection}{Intitulé}{Dates}{Sous-titre} : poste avec missions
+% (\item) ; le sous-titre peut être laissé vide
+\newenvironment{rSubsection}[3]{%
+  \textbf{#1}\hfill #2%
+  \ifx\relax#3\relax\else\\\textit{#3}\fi
+  \smallskip
+  \begin{rBullets}%
+  \vspace{0.3em}%
+}{%
+  \end{rBullets}%
+  \vspace{0.5em}%
 }
 
-% Used to format job listing
-\newenvironment{rSubsection}[4]{ {\bf #1}\hfill{    #2}
-  \ifthenelse{\equal{#3}{}}{}{
-  \\
-  {\it #3}}\smallskip
-  % \cdot used for bullets, items non-indented
-  \begin{list}{$\cdot$}{\leftmargin=0.5em}
-  \itemsep 0.5em \vspace{0.3em}
-}{
-  \end{list}
-  \vspace{0.5em}
+% \rEntry{Intitulé}{Dates}{Description} : entrée courte sur deux lignes
+\newcommand{\rEntry}[3]{%
+  \textbf{#1}\hfill #2\\
+  #3\par
 }
-
-\def\namesize{\huge}
-\def\nameskip{\smallskip}
-\def\addressskip{\smallskip}
-\def\sectionskip{\medskip}
-\def\sectionlineskip{\medskip}
