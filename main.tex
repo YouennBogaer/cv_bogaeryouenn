@@ -5,7 +5,7 @@
 \hypersetup{
   pdftitle    = {CV \textendash\ Youenn Bogaer},
   pdfauthor   = {Youenn Bogaer},
-  pdfsubject  = {Ingénieur IA/ML},
+  pdfsubject  = {Ingénieur IA / Machine Learning},
   pdfkeywords = {Intelligence Artificielle, Machine Learning, Deep Learning, LLM},
 }
 
@@ -15,16 +15,15 @@
 % EN-TÊTE
 %-------------------------------------------------------------------------------
 \rHeader{Youenn BOGAER}
-        {Recherche CDI -- Ingénieur IA/ML}
+        {Recherche CDI -- Ingénieur IA / Machine Learning}
         {Disponible à partir de décembre 2026}
 
 \vspace{3mm}
 
+\begin{rColumns}{0.28}{0.66}
 %===============================================================================
 % COLONNE GAUCHE
 %===============================================================================
-\begin{minipage}[t]{0.26\textwidth}
-\vspace{0pt}
 \small
 
 %-------------------------------------------------------------------------------
@@ -44,7 +43,8 @@
 %-------------------------------------------------------------------------------
 \begin{rLeftColSection}{Contact}
   \begin{rBullets}[0.2em]
-    \item \href{tel:+33613750008}{+33(0)6.13.75.00.08}
+    \item Rennes -- mobile France entière
+    \item \href{tel:+33613750008}{+33 6 13 75 00 08}
     \item \href{mailto:bogaeryouenn@gmail.com}{bogaeryouenn@gmail.com}
     \item \href{https://www.linkedin.com/in/youenn-bogaer}{linkedin.com/in/youenn-bogaer}
     \item \href{https://github.com/YouennBogaer}{github.com/YouennBogaer}
@@ -56,17 +56,20 @@
 %-------------------------------------------------------------------------------
 \begin{rLeftColSection}{Compétences}
   \begin{rSkillGroup}{Programmation}
-    \item Python (Avancé)
-    \item SQL, Java, C
+    \item Python, SQL
+    \item Java, C
   \end{rSkillGroup}
   \begin{rSkillGroup}{IA \& MLOps}
     \item PyTorch, CrewAI
+    \item NumPy, pandas
+    \item scikit-learn
     \item RAG, Hugging Face
     \item Kedro, vLLM
   \end{rSkillGroup}
   \begin{rSkillGroup}{DevOps}
     \item Kubernetes, Docker
-    \item Ansible, Git
+    \item Ansible, Linux, Git
+    \item Google Cloud (GCP)
   \end{rSkillGroup}
   \begin{rSkillGroup}{Langues}
     \item Français (Natif)
@@ -76,44 +79,42 @@
   \end{rSkillGroup}
 \end{rLeftColSection}
 
-\end{minipage}
-\hfill\vrule\hfill
+\rNextColumn
 %===============================================================================
 % COLONNE DROITE
 %===============================================================================
-\begin{minipage}[t]{0.66\textwidth}
-\vspace{0pt}
 \linespread{0.9}\selectfont
+\nohyphens
 
 %-------------------------------------------------------------------------------
 % EXPÉRIENCE
 %-------------------------------------------------------------------------------
 \begin{rSection}{Expérience}
 
-  \begin{rSubsection}{Stage R\&D Intelligence Artificielle -- Armée de Terre, Rennes}
+  \begin{rSubsection}{Stage R\&D IA -- Armée de Terre, Rennes}
                      {Mai--Nov. 2026}
-                     {Déploiement d'un SOC assisté par IA}
-    \item Conception et implémentation d'architectures agentiques (CrewAI)
-          pour le triage, l'enrichissement d'alertes et la détection
-          d'attaques.
+                     {Déploiement d'un centre de supervision de sécurité assisté par IA}
+    \item Conception de systèmes multi-agents (CrewAI) pour le triage,
+          l'enrichissement d'alertes et la détection d'attaques.
     \item Traitement de 9\,000 alertes en moins de 6 minutes sur le jeu de
-          données Splunk BOTSv1.
-    \item Déploiement multi-modèles \textit{on-premise} et optimisation de
+          données Splunk BOTSv1.  
+    \item Déploiement multi-modèles \textit{on-premise} (Llama, Qwen) et optimisation de
           l'allocation des ressources matérielles dont le partage d'un GPU
           entre deux instances vLLM (RTX 6000 Blackwell).
     \item Définition des cas d'usage IA, sélection et évaluation des modèles.
   \end{rSubsection}
 
-  \begin{rSubsection}{Projet de Recherche (PFE) -- IRD}
+  % Titre cliquable : lien vers le code du projet
+  \begin{rSubsection}{\href{https://github.com/Victand/pfe_crossvit_dual}{Projet de fin d'études -- IRD \& CY Tech}}
                      {2025--2026}
                      {Classification d'images d'herbiers contrainte par la morphologie}
-    \item Conception et implémentation sous PyTorch d'une architecture
-          multi-branches intégrant la détection d'organes à la perte.
+    \item Conception sous PyTorch d'un Vision Transformer double branche
+          (CrossViT) guidé par la détection d'organes (YOLOv7).
     \item Synthèse et rédaction de l'état de l'art scientifique.
   \end{rSubsection}
 
   \begin{rSubsection}{Stage Développeur -- Naval Group, Brest}
-                     {Été 2024}
+                     {Juin--Août 2024}
                      {Développement sur XWiki et gestion de projet en autonomie}
     \item Recueil des besoins et développement d'une application de gestion
           pour les équipes du recrutement (10+ utilisateurs).
@@ -127,9 +128,9 @@
 \begin{rSection}{Formation}
 
   \rEntry{CY Tech (ex EISTI), Cergy}{2023--2026}
-         {\textit{Grande école d'ingénieurs -- Spécialité Intelligence Artificielle}}
+         {\textit{Diplôme d'ingénieur Bac+5 -- Spécialité Intelligence Artificielle}}
 
-  \rEntry{Technische Universität Dresden, Allemagne}{Été 2025}
+  \rEntry{TU Dresden, Allemagne}{Avr.--Juil. 2025}
          {\textit{Échange Erasmus -- Semestre d'été}}
 
   \rEntry{Lycée La Pérouse-Kerichen, Brest}{2020--2023}
@@ -142,19 +143,17 @@
 %-------------------------------------------------------------------------------
 \begin{rSection}{Projets académiques}
 
-  \rEntry{LLM Multimodal NLP : Image Captioning}{Décembre 2025}
-         {Fine-tuning du modèle LLaVA, servi via Ollama, en multimodal vision/langage.}
+  \rEntry{LLM Multimodal NLP : Image Captioning}{Déc. 2025}
+         {Fine-tuning du modèle LLaVA en multimodal vision/langage, déploiement via Ollama.}
 
-  \rEntry{Lauréat Hackathon CY Tech}{Décembre 2025}
-         {Direction et formation d'une équipe de 5 personnes sous forte contrainte de temps.}
-         
-  \rEntry{Computer Vision : Image Segmentation}{Novembre 2025}
+  \rEntry{Lauréat Hackathon CY Tech}{Déc. 2025}
+         {Direction et formation d'une équipe de 5 développeurs sur un projet orienté objet.}
+
+  \rEntry{Computer Vision : Image Segmentation}{Nov. 2025}
          {Fine-tuning d'un modèle Mask R-CNN pour la segmentation d'instances.}
-
-  
 
 \end{rSection}
 
-\end{minipage}
+\end{rColumns}
 
 \end{document}

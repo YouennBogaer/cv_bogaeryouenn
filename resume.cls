@@ -41,6 +41,9 @@
 \newcommand{\sectionskip}{\medskip}       % Avant chaque titre de section
 \newcommand{\sectionlineskip}{\medskip}   % Entre un titre et son filet
 
+% Interdit la césure : un mot coupé (« Cre-wAI ») n'est plus reconnu par un ATS
+\newcommand{\nohyphens}{\hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EN-TÊTE
 
@@ -51,6 +54,25 @@
     {\large\bfseries #2}\\
     #3
   \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLONNES
+
+% Deux colonnes alignées en haut, séparées par un filet vertical centré
+% dans l'espace restant (largeurs en fraction de \textwidth) :
+%   \begin{rColumns}{0.28}{0.66} <gauche> \rNextColumn <droite> \end{rColumns}
+\newenvironment{rColumns}[2]{%
+  \def\rColumns@right{#2}%
+  \par\noindent
+  \begin{minipage}[t]{#1\textwidth}\vspace{0pt}%
+}{%
+  \end{minipage}%
+  \setlength{\parfillskip}{0pt}\par % sinon la fin de ligne absorbe l'espace
+}
+\newcommand{\rNextColumn}{%
+  \end{minipage}\hfill\vrule\hfill
+  \begin{minipage}[t]{\rColumns@right\textwidth}\vspace{0pt}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

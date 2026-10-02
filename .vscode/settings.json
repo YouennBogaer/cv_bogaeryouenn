@@ -1,0 +1,4 @@
+{
+  // Compilation locale dans build/ : main.pdf à la racine n'est produit que par la CI
+  "latex-workshop.latex.outDir": "%DIR%/build"
+}
